@@ -26,9 +26,9 @@ function createMenu({
   clearAppData,
   disableDevTools,
 }) {
-  if (Menu.getApplicationMenu()) {
-    return;
-  }
+  //if (Menu.getApplicationMenu()) {
+  //  return;
+  //}
   const zoomResetLabel =
     zoomBuildTimeValue === 1.0
       ? 'Reset Zoom'
@@ -36,91 +36,8 @@ function createMenu({
 
   const template = [
     {
-      label: '&Edit',
-      submenu: [
-        {
-          label: 'Undo',
-          accelerator: 'CmdOrCtrl+Z',
-          role: 'undo',
-        },
-        {
-          label: 'Redo',
-          accelerator: 'Shift+CmdOrCtrl+Z',
-          role: 'redo',
-        },
-        {
-          type: 'separator',
-        },
-        {
-          label: 'Cut',
-          accelerator: 'CmdOrCtrl+X',
-          role: 'cut',
-        },
-        {
-          label: 'Copy',
-          accelerator: 'CmdOrCtrl+C',
-          role: 'copy',
-        },
-        {
-          label: 'Copy Current URL',
-          accelerator: 'CmdOrCtrl+L',
-          click: () => {
-            const currentURL = getCurrentUrl();
-            clipboard.writeText(currentURL);
-          },
-        },
-        {
-          label: 'Paste',
-          accelerator: 'CmdOrCtrl+V',
-          role: 'paste',
-        },
-        {
-          label: 'Paste and Match Style',
-          accelerator: 'CmdOrCtrl+Shift+V',
-          role: 'pasteandmatchstyle',
-        },
-        {
-          label: 'Select All',
-          accelerator: 'CmdOrCtrl+A',
-          role: 'selectall',
-        },
-        {
-          label: 'Clear App Data',
-          click: () => {
-            clearAppData();
-          },
-        },
-      ],
-    },
-    {
       label: '&View',
       submenu: [
-        {
-          label: 'Back',
-          accelerator: 'CmdOrCtrl+[',
-          click: () => {
-            goBack();
-          },
-        },
-        {
-          label: 'Forward',
-          accelerator: 'CmdOrCtrl+]',
-          click: () => {
-            goForward();
-          },
-        },
-        {
-          label: 'Reload',
-          accelerator: 'CmdOrCtrl+R',
-          click: (item, focusedWindow) => {
-            if (focusedWindow) {
-              focusedWindow.reload();
-            }
-          },
-        },
-        {
-          type: 'separator',
-        },
         {
           label: 'Toggle Full Screen',
           accelerator: (() => {
@@ -141,7 +58,7 @@ function createMenu({
             if (process.platform === 'darwin') {
               return 'Command+=';
             }
-            return 'Ctrl+=';
+            return 'Ctrl+Up';
           })(),
           click: () => {
             zoomIn();
@@ -153,7 +70,7 @@ function createMenu({
             if (process.platform === 'darwin') {
               return 'Command+-';
             }
-            return 'Ctrl+-';
+            return 'Ctrl+Down';
           })(),
           click: () => {
             zoomOut();
@@ -202,25 +119,7 @@ function createMenu({
           role: 'close',
         },
       ],
-    },
-    {
-      label: '&Help',
-      role: 'help',
-      submenu: [
-        {
-          label: `Built with Nativefier v${nativefierVersion}`,
-          click: () => {
-            shell.openExternal('https://github.com/jiahaog/nativefier');
-          },
-        },
-        {
-          label: 'Report an Issue',
-          click: () => {
-            shell.openExternal('https://github.com/jiahaog/nativefier/issues');
-          },
-        },
-      ],
-    },
+    }
   ];
 
   if (disableDevTools) {
